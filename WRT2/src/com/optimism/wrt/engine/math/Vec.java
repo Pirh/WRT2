@@ -1,4 +1,4 @@
-package com.optimism.wrt.engine.vectors;
+package com.optimism.wrt.engine.math;
 
 /*
  * An immutable vector class. You don't need to worry about copying it now!
@@ -57,10 +57,16 @@ public class Vec {
 		return (len > 0) ? this.mul(1.0/len) : this;
 	}
 	
+	public double angle() {
+		return Math.toDegrees(Math.acos( this.x / this.length() ) * Math.signum(this.y));
+	}
+	
 	public Vec rotate(double theta) {
+		double sint = Math.sin(Math.toRadians(theta));
+		double cost = Math.cos(Math.toRadians(theta));
 		return new Vec(
-				x * Math.cos(theta) - y * Math.sin(theta),
-				x * Math.sin(theta) + y * Math.cos(theta));
+				x * cost - y * sint,
+				x * sint + y * cost);
 	}
 	
 	public String toString() {

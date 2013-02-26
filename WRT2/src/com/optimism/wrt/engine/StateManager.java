@@ -1,9 +1,7 @@
-package com.optimism.wrt;
+package com.optimism.wrt.engine;
 
 import java.util.Stack;
 
-import com.optimism.wrt.engine.GameState;
-import com.optimism.wrt.engine.MainGame;
 
 
 /*

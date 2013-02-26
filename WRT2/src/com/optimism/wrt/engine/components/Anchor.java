@@ -1,6 +1,6 @@
 package com.optimism.wrt.engine.components;
 
-import com.optimism.wrt.engine.vectors.Vec;
+import com.optimism.wrt.engine.math.Vec;
 
 
 /*

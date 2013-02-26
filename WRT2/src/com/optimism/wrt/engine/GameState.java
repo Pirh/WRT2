@@ -1,6 +1,5 @@
 package com.optimism.wrt.engine;
 
-import com.optimism.wrt.StateManager;
 
 
 public abstract class GameState {
