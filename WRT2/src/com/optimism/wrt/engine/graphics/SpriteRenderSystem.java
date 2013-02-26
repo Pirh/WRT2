@@ -3,7 +3,6 @@ package com.optimism.wrt.engine.graphics;
 import com.artemis.*;
 import com.artemis.annotations.Mapper;
 import com.artemis.systems.EntityProcessingSystem;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.optimism.wrt.engine.components.*;
 

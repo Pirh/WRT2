@@ -16,7 +16,7 @@ import com.optimism.wrt.game.wormhole.components.*;
 
 public class DebugBodiesSystem extends EntityProcessingSystem {
 	
-	private static final Color Team0Col = new Color(1.0f, 0.6f, 0.3f, 1.0f);
+	private static final Color Team0Col = new Color(1.0f, 0.4f, 1.0f, 1.0f);
 	private static final Color Team1Col = new Color(0.6f, 1.0f, 0.7f, 1.0f);
 	private static final Color Team2Col = new Color(1.0f, 1.0f, 0.4f, 1.0f);
 	

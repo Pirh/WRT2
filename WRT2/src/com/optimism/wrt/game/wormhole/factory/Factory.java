@@ -29,6 +29,7 @@ public class Factory {
 		wormhole.addComponent(new Body(new Circle(2)));
 		wormhole.addComponent(Team.TEAM0);
 		wormhole.addComponent(new Health(1<<30, 1L<<62));
+		wormhole.addToWorld();
 		return wormhole;
 	}
 	

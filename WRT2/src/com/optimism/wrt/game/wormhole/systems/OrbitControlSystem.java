@@ -21,9 +21,10 @@ public class OrbitControlSystem extends VoidEntitySystem {
 			acc = world.delta * Settings.direction;
 		} else if (Gdx.input.isKeyPressed(Controls.moveRight)) {
 			acc = -world.delta * Settings.direction;
+		} else {
+			controller.decelerate(world.delta);
 		}
 		controller.accelerate(acc);
-		controller.decelerate(world.delta);
 	}
 
 }

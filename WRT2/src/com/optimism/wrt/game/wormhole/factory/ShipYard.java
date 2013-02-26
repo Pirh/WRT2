@@ -4,25 +4,34 @@ import com.artemis.*;
 import com.optimism.wrt.engine.Settings;
 import com.optimism.wrt.engine.components.*;
 import com.optimism.wrt.engine.math.*;
+import com.optimism.wrt.engine.scripting.ScriptAction;
 import com.optimism.wrt.game.wormhole.components.*;
+import com.optimism.wrt.game.wormhole.scripts.RandomDirectionScript;
 
 public class ShipYard {
 	
 	public static Entity playerShip(World world, Vec position) {
-		return createShip(world, position, new Vec(10,10), "ship-player.png", 3.0, Team.TEAM1, 1, 0, 0);
+		return createShip(world, position, new Vec(10,10), "ship-player.png", 3.0, Team.TEAM1, 1, 0, 0, 0.0, null);
+	}
+	public static Entity blueShip(World world, Vec position) {
+		return createShip(world, position, new Vec(6,6), "ship-blue.png", 1.8, Team.TEAM0, 1, 0, 20, 1440.0,
+				new RandomDirectionScript(10.0));
 	}
 	
 	
 	public static Entity createShip(World world, Vec position, Vec size, String image, double radius, Team team,
-			int health, int damage, long score) {
+			int health, int damage, long score, double spin, ScriptAction script) {
 		Entity ship = Factory.createThing(world, position, size, image);
 		ship.addComponent(new Velocity(Vec.zero));
-		ship.addComponent(new Orientation(0));
-		ship.addComponent(Team.TEAM1);
+		ship.addComponent(new Orientation(0, spin));
+		ship.addComponent(team);
 		ship.addComponent(new Body(new Circle(radius)));
 		ship.addComponent(new Health(health, score));
-		if (damage >= 0) {
+		if (damage > 0) {
 			ship.addComponent(new Damage(damage));
+		}
+		if (script != null) {
+			ship.addComponent(new Script(script));
 		}
 		return ship;
 	}
@@ -37,6 +46,7 @@ public class ShipYard {
 			ship.addComponent(new Weapon(Settings.firingRate));
 			ship.addComponent(Controllable.FLAG);
 			ship.addToWorld();
+			ships[i] = ship;
 		}
 		return ships;
 	}
