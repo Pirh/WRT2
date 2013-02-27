@@ -10,6 +10,8 @@ public class Main {
 		cfg.useGL20 = false;
 		cfg.width = 1024;
 		cfg.height = 576;
+		cfg.useCPUSynch = false;
+		cfg.vSyncEnabled = false;
 		
 		new LwjglApplication(new WRT(), cfg);
 	}
