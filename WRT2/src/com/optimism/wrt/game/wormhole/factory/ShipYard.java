@@ -14,8 +14,12 @@ public class ShipYard {
 		return createShip(world, position, new Vec(10,10), "ship-player.png", 3.0, Team.TEAM1, 1, 0, 0, 0.0, null);
 	}
 	public static Entity blueShip(World world, Vec position) {
-		return createShip(world, position, new Vec(6,6), "ship-blue.png", 1.8, Team.TEAM0, 1, 0, 20, 1440.0,
+		return createShip(world, position, new Vec(6,6), "enemy-blue.png", 1.8, Team.TEAM0, 1, 0, 20, 1440.0,
 				new RandomDirectionScript(10.0));
+	}
+	public static Entity redShip(World world, Vec position) {
+		return createShip(world, position, new Vec(9,9), "enemy-red.png", 3, Team.TEAM0, 4, 0, 50, 1000.0,
+				new RandomDirectionScript(5.0));
 	}
 	
 	

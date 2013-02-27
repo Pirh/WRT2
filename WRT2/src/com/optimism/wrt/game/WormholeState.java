@@ -3,11 +3,11 @@ package com.optimism.wrt.game;
 import com.artemis.*;
 import com.badlogic.gdx.Gdx;
 import com.optimism.wrt.engine.*;
-import com.optimism.wrt.engine.graphics.SpriteRenderSystem;
+import com.optimism.wrt.engine.graphics.*;
 import com.optimism.wrt.engine.systems.*;
 import com.optimism.wrt.game.wormhole.*;
 import com.optimism.wrt.game.wormhole.collision.*;
-import com.optimism.wrt.game.wormhole.debug.DebugBodiesSystem;
+import com.optimism.wrt.game.wormhole.debug.*;
 import com.optimism.wrt.game.wormhole.systems.*;
 
 
@@ -23,6 +23,7 @@ public class WormholeState extends GameState {
 	private OrbitController controller;
 	private CollideList collideList;
 	private WormholeScene scene;
+	private HUD hud;
 	
 	
 	public WormholeState(StateManager manager) {
@@ -33,8 +34,9 @@ public class WormholeState extends GameState {
 		collideList = new CollideList();
 		scene = new WormholeScene(world);
 		levelData = new LevelData();
+		hud = new HUD(world, levelData);
 		
-		Gdx.input.setInputProcessor(new KeyPressListener());
+		Gdx.input.setInputProcessor(new KeyPressListener(new DebugManager(world)));
 		
 		initialize();
 	}
@@ -43,7 +45,6 @@ public class WormholeState extends GameState {
 		
 		/* TODO
 		 * - Failure state
-		 * - Text rendering
 		 */
 		
 		world.setSystem(new OrbitControlSystem(controller));
@@ -56,9 +57,9 @@ public class WormholeState extends GameState {
 		
 		world.setSystem(new WeaponSystem());
 		world.setSystem(new CollisionSystem(collideList));
-		world.setSystem(new DamageSystem(collideList, levelData));
 		
-		world.setSystem(new PlanetDamageSystem(levelData));
+		world.setSystem(new DamageSystem(collideList, levelData, hud));
+		world.setSystem(new PlanetDamageSystem(levelData, hud));
 		
 		world.setSystem(new UpgradeSystem(levelData, scene));
 		world.setSystem(new EnemySpawnSystem(levelData));
@@ -71,6 +72,7 @@ public class WormholeState extends GameState {
 		renderSystems = new EntitySystem[] {
 				world.setSystem(new OrbitRenderSystem(levelData), true),
 				world.setSystem(new SpriteRenderSystem(), true),
+				world.setSystem(new TextRenderSystem(), true),
 				world.setSystem(new DebugBodiesSystem(collideList), true)
 		};
 		
@@ -87,7 +89,10 @@ public class WormholeState extends GameState {
 		if (!Settings.paused) {
 			collideList.clear();
 			world.process();
-		}
+			
+			if (levelData.lives <= 0)
+				Gdx.app.exit();
+			}
 		// Process all graphics related systems; we do this even when its paused.
 		for (EntitySystem renderSys: renderSystems) {
 			renderSys.process();

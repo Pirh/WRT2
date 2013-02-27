@@ -20,11 +20,13 @@ public class DecaySystem extends EntityProcessingSystem {
 	@Override
 	public void process(Entity entity) {
 		Rect rect = rm.get(entity);
+		double halfWidth = Projector.gameWidth/2;
+		double halfHeight = Projector.gameHeight/2;
 		if (
-				rect.lowleft.x > Projector.halfWidth ||
-				rect.lowleft.x + rect.size.x < -Projector.halfWidth ||
-				rect.lowleft.y > Projector.halfHeight ||
-				rect.lowleft.y + rect.size.y < -Projector.halfHeight) {
+				rect.lowleft.x > halfWidth ||
+				rect.lowleft.x + rect.size.x < -Projector.gameWidth/2 ||
+				rect.lowleft.y > halfHeight ||
+				rect.lowleft.y + rect.size.y < -Projector.gameHeight/2) {
 			
 			entity.deleteFromWorld();
 		}

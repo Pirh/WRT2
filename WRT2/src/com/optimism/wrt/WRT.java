@@ -25,7 +25,7 @@ public class WRT extends MainGame {
 
 	@Override
 	public void render() {
-		if (Debug.logFPS) {
+		if (Debug.showFPS) {
 			fpsLogger.log();
 		}
 		// Clears the colour buffer (the screen)

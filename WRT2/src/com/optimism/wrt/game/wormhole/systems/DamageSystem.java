@@ -3,7 +3,7 @@ package com.optimism.wrt.game.wormhole.systems;
 import com.artemis.*;
 import com.artemis.annotations.Mapper;
 import com.artemis.systems.VoidEntitySystem;
-import com.optimism.wrt.game.wormhole.LevelData;
+import com.optimism.wrt.game.wormhole.*;
 import com.optimism.wrt.game.wormhole.collision.*;
 import com.optimism.wrt.game.wormhole.components.*;
 
@@ -16,11 +16,13 @@ public class DamageSystem extends VoidEntitySystem {
 	
 	private CollideList collideList;
 	private LevelData levelData;
+	private HUD hud;
 	
 	
-	public DamageSystem(CollideList collideList, LevelData levelData) {
+	public DamageSystem(CollideList collideList, LevelData levelData, HUD hud) {
 		this.collideList = collideList;
 		this.levelData = levelData;
+		this.hud = hud;
 	}
 	
 	@Override
@@ -42,6 +44,7 @@ public class DamageSystem extends VoidEntitySystem {
 				Team team = tm.getSafe(second);
 				if (team == Team.TEAM1) {
 					levelData.gainScore(health.score);
+					hud.refresh(levelData);
 				}
 				first.deleteFromWorld();
 			}

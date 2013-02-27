@@ -15,7 +15,7 @@ public class EnemySpawnSystem extends IntervalEntitySystem {
 
 	private LevelData levelData;
 	private double timeSinceSpawn = 0;
-	
+
 	
 	@SuppressWarnings("unchecked")
 	public EnemySpawnSystem(LevelData levelData) {
@@ -43,7 +43,12 @@ public class EnemySpawnSystem extends IntervalEntitySystem {
 	
 	protected Entity randomEnemy() {
 		Vec position = Tools.randomVec(15.0);
-		return ShipYard.blueShip(world, position);
+		Entity ship;
+		switch (Tools.random.nextInt(2)) {
+		case 1: ship = ShipYard.redShip(world, position); break;
+		default: ship = ShipYard.blueShip(world, position); break;
+		}
+		return ship;
 	}
 	
 }
