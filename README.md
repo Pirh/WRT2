@@ -30,3 +30,8 @@ _com.optimism.wrt.engine_
 GameStates perform the function that our massive JFrame class did in the project's previous incarnation. They contain the world (if there is one) and handle the mainloop while they are the active state.
 
 The StateManager holds information about which State the game is in. The WRT class looks to the StateManager to call the run function of the current State. Each GameState also has a reference to the Manager, so to change state, you can either call `manager.pushState(newState)` to change to a new state or `manager.popState()` to return to the previous state.
+
+#### The WormholeState class
+_com.optimism.wrt.game_
+
+This is the only GameState at the moment. I've chosen to put this in the **game** package rather than the **engine** package to try and keep some code separate: code that we can easily reuse in other projects goes in **engine**, while code that is very specific to _this_ game goes in **game**. The WormholeState can't really be reused, but the GameState, StateManager and MainGame can be. Hence why I've put them in **engine**.
